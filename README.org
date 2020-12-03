@@ -1,0 +1,2 @@
+* Classify LIGO Data Using a Convolutional Neural Net and Scaleograms
+README is a work in progress! Check back soon.
