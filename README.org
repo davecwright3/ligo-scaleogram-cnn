@@ -1,2 +1,13 @@
 * Classify LIGO Data Using a Convolutional Neural Net and Scaleograms
-README is a work in progress! Check back soon.
+This project aimed to simulate burst gravitational waves, compute the scaleogram of the the simulation, and then train a neural network to detect scaleograms that contained burst gravitational wave signals. The trained neural network was 98% accurate on scaleograms that it had never seen before.
+
+** Generating the Training Data 
+The ~gen-signal.sh~ and ~gen-noise.sh~ shell scripts are pipelines for generating realistic detector measurements of gravitational waves and pure noise, respectively. They use the [[https://anaconda.org/conda-forge/python-lalsimulation/][python-lalsimulation]] package provided by the [[https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/][LIGO Scientific Collaboration]]. The ~gen_ligo_scaleogram.ipynb~ Jupyter notebook runs these scripts and uses the output to compute the scaleogram.
+
+** Training and Testing the Neural Network
+Generating a sufficiently-sized dataset was an issue with the computing resources I had available. To overcome this limitation, I exploited [[https://machinelearningmastery.com/transfer-learning-for-deep-learning/][transfer learning]] and used the pre-trained [[https://www.tensorflow.org/api_docs/python/tf/keras/applications/InceptionV3][InceptionV3]] convolutional neural network in ~ligo_classifier.ipynb~. I removed the top layer and trained a new classification layer on the scaleogram dataset. I split the dataset between training, validation, and testing. The testing dataset was used after training to show that the neural network had not just memorized the training set.
+
+** How Can I Reproduce This Work?
+I provide the keras model in this github repo. You can simply load the keras model, generate a few scaleograms using the ~gen_ligo_scaleogram.ipynb~, and test the predictions of the network. If you would like my original training, validation, and testing sets, please send me an email.
+
+Also, I have prepared some relevant slides on my [[https://www.davecwright.org/files/ligo_scal_cnn.html#1][website]].
